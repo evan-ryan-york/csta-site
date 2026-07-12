@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main className="flex flex-1 items-center justify-center px-6 py-24">
@@ -12,6 +14,12 @@ export default function Home() {
           A companion resource site for a conference presentation. Content
           coming soon.
         </p>
+        <Link
+          href="/setting-up-claude-code"
+          className="mt-8 inline-flex h-12 items-center justify-center rounded-full bg-foreground px-6 font-medium text-background transition hover:opacity-90"
+        >
+          Setting up Claude Code &rarr;
+        </Link>
       </div>
     </main>
   );
