@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import type { ReactNode } from "react";
 import CodeBlock from "@/components/CodeBlock";
 import { Platform, PlatformTabs } from "@/components/Platform";
@@ -48,14 +47,7 @@ function Callout({ title, children }: { title: string; children: ReactNode }) {
 export default function SettingUpClaudeCode() {
   return (
     <main className="mx-auto w-full max-w-3xl flex-1 px-6 py-16 sm:py-24">
-      <Link
-        href="/"
-        className="font-mono text-sm text-foreground/50 transition hover:text-foreground"
-      >
-        &larr; Back
-      </Link>
-
-      <header className="mt-8">
+      <header>
         <p className="font-mono text-sm uppercase tracking-widest text-foreground/50">
           Guide
         </p>
