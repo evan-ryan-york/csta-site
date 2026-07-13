@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-// Add future resource pages here and they show up in the menu automatically.
+// Add future pages here and they show up in the menu automatically.
 const NAV_LINKS = [
   { href: "/setting-up-claude-code", label: "Setting up Claude Code" },
+  { href: "/resources", label: "Resources" },
 ];
 
 export default function SiteHeader() {
