@@ -10,6 +10,11 @@ export function generateStaticParams() {
   return SKILLS.map((skill) => ({ slug: skill.slug }));
 }
 
+// These pages read their markdown off disk from public/. That only works at
+// build time — public/ isn't bundled into a serverless function — so an unknown
+// slug must 404 rather than attempt a request-time render and throw a 500.
+export const dynamicParams = false;
+
 export async function generateMetadata({
   params,
 }: {
