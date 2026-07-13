@@ -33,7 +33,30 @@ export default function ResourcesPage() {
         </p>
       </header>
 
-      <nav aria-label="Sections" className="mt-8 flex flex-wrap gap-2">
+      <a
+        href="https://claude-session-one.vercel.app/workshop"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group mt-10 block rounded-2xl border border-foreground/20 bg-foreground/[0.03] p-6 transition hover:border-foreground/40 hover:bg-foreground/[0.05] sm:p-8"
+      >
+        <p className="font-mono text-xs uppercase tracking-widest text-foreground/50">
+          Start with this
+        </p>
+        <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
+          The Claude Code workshop
+        </h2>
+        <p className="mt-3 max-w-2xl leading-relaxed text-pretty text-foreground/75">
+          A full three-hour workshop I built for learning Claude Code hands-on,
+          with a <strong>beginner track</strong> and an{" "}
+          <strong>advanced track</strong>
+          {" so you can join at whatever level you’re at. If you only open one thing on this page, open this."}
+        </p>
+        <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-foreground transition group-hover:gap-2.5">
+          Open the workshop <span aria-hidden="true">&rarr;</span>
+        </span>
+      </a>
+
+      <nav aria-label="Sections" className="mt-10 flex flex-wrap gap-2">
         {SECTIONS.map((s) => (
           <a
             key={s.id}
