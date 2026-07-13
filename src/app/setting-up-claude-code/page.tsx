@@ -108,8 +108,9 @@ export default function SettingUpClaudeCode() {
 
         <Step n={2} title="Install Claude Code">
           <p className="text-foreground/75">
-            Paste this into your terminal and press Enter. It downloads and
-            installs the official binary.
+            Copy the command below, paste it into{" "}
+            <Platform mac={<>Terminal</>} windows={<>PowerShell</>} />, and
+            press Enter. It downloads and installs Claude Code for you.
           </p>
           <Platform
             mac={
@@ -119,49 +120,15 @@ export default function SettingUpClaudeCode() {
               />
             }
             windows={
-              <>
-                <CodeBlock
-                  label="PowerShell"
-                  code="irm https://claude.ai/install.ps1 | iex"
-                />
-                <p className="text-sm text-foreground/60">
-                  Not sure which terminal you&rsquo;re in? PowerShell&rsquo;s
-                  prompt starts with{" "}
-                  <code className="font-mono text-foreground/80">PS C:\</code>.
-                  If yours lacks the <code className="font-mono">PS</code>,
-                  you&rsquo;re in Command Prompt &mdash; use this instead:
-                </p>
-                <CodeBlock
-                  label="Command Prompt (CMD)"
-                  code="curl -fsSL https://claude.ai/install.cmd -o install.cmd && install.cmd && del install.cmd"
-                />
-              </>
-            }
-          />
-
-          <p className="mt-6 text-foreground/75">
-            Prefer a package manager? This works too:
-          </p>
-          <Platform
-            mac={
               <CodeBlock
-                label="Homebrew"
-                code="brew install --cask claude-code"
-              />
-            }
-            windows={
-              <CodeBlock
-                label="WinGet"
-                code="winget install Anthropic.ClaudeCode"
+                label="PowerShell"
+                code="irm https://claude.ai/install.ps1 | iex"
               />
             }
           />
           <p className="text-sm text-foreground/60">
-            The installer above updates itself automatically in the background.{" "}
-            <Platform mac={<>Homebrew</>} windows={<>WinGet</>} />
-            {
-              " installs do not, so you’d have to upgrade by hand. That’s why the first option is recommended."
-            }
+            Installed this way, Claude Code keeps itself up to date
+            automatically. You never have to run this again.
           </p>
         </Step>
 
@@ -344,46 +311,26 @@ export default function SettingUpClaudeCode() {
           </p>
 
           <Platform
-            mac={
-              <>
-                <h3 className="mt-6 font-semibold">
-                  The install command hangs or fails
-                </h3>
-                <p className="mt-2 text-foreground/75">
-                  School and conference Wi-Fi often blocks the download. Try a
-                  different network or a phone hotspot.
-                </p>
-              </>
-            }
+            mac={null}
             windows={
               <>
                 <h3 className="mt-6 font-semibold">
                   &ldquo;irm is not recognized&rdquo;
                 </h3>
                 <p className="mt-2 text-foreground/75">
-                  You&rsquo;re in Command Prompt, not PowerShell. Either open
-                  PowerShell, or use the CMD command from step 2.
-                </p>
-
-                <h3 className="mt-6 font-semibold">
-                  Recommended: install Git for Windows
-                </h3>
-                <p className="mt-2 text-foreground/75">
-                  Not required, but it lets Claude Code run standard Bash
-                  commands rather than falling back to PowerShell. Grab it from{" "}
-                  <a
-                    className="font-medium underline underline-offset-4 hover:text-foreground"
-                    href="https://git-scm.com/downloads/win"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    git-scm.com
-                  </a>
-                  .
+                  You opened Command Prompt instead of PowerShell. Close it,
+                  open PowerShell (Start key &rarr; type
+                  &ldquo;PowerShell&rdquo;), and run the command again.
                 </p>
               </>
             }
           />
+
+          <h3 className="mt-6 font-semibold">The install hangs or fails</h3>
+          <p className="mt-2 text-foreground/75">
+            School and conference Wi-Fi often blocks the download. Try a
+            different network or a phone hotspot.
+          </p>
 
           <p className="mt-8 text-foreground/75">
             Still stuck? Anthropic&rsquo;s full install troubleshooting lives at{" "}
