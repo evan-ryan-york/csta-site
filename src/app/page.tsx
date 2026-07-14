@@ -8,7 +8,7 @@ export default function Home() {
           CSTA
         </p>
         <h1 className="mt-4 text-5xl font-semibold tracking-tight text-balance sm:text-6xl">
-          Hello, CSTA.
+          Hello, World.
         </h1>
         <p className="mt-6 text-lg text-pretty text-foreground/70">
           A companion resource site for a conference presentation. Content
