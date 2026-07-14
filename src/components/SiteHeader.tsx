@@ -19,6 +19,11 @@ const NAV_LINKS = [
     label: "Health App",
     external: true,
   },
+  {
+    href: "https://www.youtube.com/watch?v=JT1CLJ61ktk",
+    label: "Build Demo Video",
+    external: true,
+  },
 ];
 
 function OutboundIcon() {
@@ -98,27 +103,28 @@ export default function SiteHeader() {
           CSTA
         </Link>
 
-        {/* Desktop: everything inline. */}
-        <ul className="hidden items-center gap-2 md:flex">
+        {/* Wide screens: everything inline. Five labels need ~1024px;
+            below that they wrap inside their pills, so collapse instead. */}
+        <ul className="hidden items-center gap-2 lg:flex">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <NavItem
                 link={link}
                 active={pathname === link.href}
-                className="rounded-full px-4 py-1.5 text-sm font-medium transition"
+                className="whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition"
               />
             </li>
           ))}
         </ul>
 
-        {/* Mobile: five items will not fit, so collapse them behind a menu. */}
+        {/* Narrower than lg: collapse behind a menu. */}
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}
-          className="inline-flex items-center gap-2 rounded-full border border-foreground/15 px-3 py-1.5 text-sm font-medium text-foreground/70 transition hover:border-foreground/40 hover:text-foreground md:hidden"
+          className="inline-flex items-center gap-2 rounded-full border border-foreground/15 px-3 py-1.5 text-sm font-medium text-foreground/70 transition hover:border-foreground/40 hover:text-foreground lg:hidden"
         >
           Menu
           <svg
@@ -142,7 +148,7 @@ export default function SiteHeader() {
       {open ? (
         <div
           id="mobile-menu"
-          className="border-t border-foreground/10 bg-background px-6 py-3 md:hidden"
+          className="border-t border-foreground/10 bg-background px-6 py-3 lg:hidden"
         >
           <ul className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => (
