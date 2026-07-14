@@ -16,6 +16,45 @@ const SECTIONS = [
   { id: "build-better", label: "Build better" },
 ];
 
+// The default stack. Ordered roughly as you meet each piece, not alphabetically.
+const STACK = [
+  {
+    name: "React",
+    href: "https://react.dev",
+    what: "the UI library everything else here is built around, and the one with the most training data behind it.",
+  },
+  {
+    name: "Next.js",
+    href: "https://nextjs.org",
+    what: "the framework on top of React. Gives you routing, and a backend for API calls and data.",
+  },
+  {
+    name: "TypeScript",
+    href: "https://www.typescriptlang.org",
+    what: "JavaScript with types. The types catch a whole class of agent mistakes before the app ever runs.",
+  },
+  {
+    name: "Tailwind",
+    href: "https://tailwindcss.com",
+    what: "styling written directly on the element. Agents are unusually good at it, and it avoids a sprawl of CSS files.",
+  },
+  {
+    name: "Supabase",
+    href: "https://supabase.com",
+    what: "the database, plus login and file storage. Use it the moment you need more than one user.",
+  },
+  {
+    name: "GitHub",
+    href: "https://github.com",
+    what: "where the code lives and every change is recorded. It is what makes parallel agents and undo possible.",
+  },
+  {
+    name: "Vercel",
+    href: "https://vercel.com",
+    what: "publishes the app to a real URL. Connect the GitHub repo and each push deploys itself.",
+  },
+];
+
 export default function ResourcesPage() {
   return (
     <main className="mx-auto w-full max-w-5xl flex-1 px-6 py-16 sm:py-20">
@@ -148,14 +187,70 @@ export default function ResourcesPage() {
           title="Build better"
           lede={
             <>
-              Copy-and-paste files that change how Claude Code behaves. Skills
-              live in <code className="font-mono">.claude/skills/</code> in your
-              project and load automatically when the task matches. Every file
-              below has a copy button and a download link.
+              Pick a stack the models know cold. An obscure or outdated one will
+              fight you the whole way, because the model has seen far less of it.
+              For almost any web app, this is the boring, well-trodden set worth
+              defaulting to: <strong>React</strong> and <strong>Next.js</strong>{" "}
+              in <strong>TypeScript</strong>, styled with{" "}
+              <strong>Tailwind</strong>, data in <strong>Supabase</strong>,
+              versioned on <strong>GitHub</strong>, deployed to{" "}
+              <strong>Vercel</strong>.
             </>
           }
         >
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="-mt-2 grid max-w-3xl gap-x-8 gap-y-2.5 text-sm leading-relaxed text-foreground/70 sm:grid-cols-2">
+            {STACK.map((s) => (
+              <li key={s.name} className="flex gap-2">
+                <span aria-hidden="true" className="text-foreground/30">
+                  &bull;
+                </span>
+                <span>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-foreground underline underline-offset-4 decoration-foreground/25 transition hover:decoration-foreground"
+                  >
+                    {s.name}
+                  </a>{" "}
+                  — {s.what}
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          <h3 className="mt-12 text-xl font-semibold tracking-tight">
+            The app from the walkthrough
+          </h3>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-foreground/65">
+            Everything built in the walkthrough, on that stack — the spec, the
+            plan the agents executed, the tests, and the finished app.
+          </p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <Card
+              href="https://github.com/evan-ryan-york/health-tracking-app"
+              external
+              meta="GitHub"
+              title="health-tracking-app"
+              cta="Open the repo"
+            >
+              The nutrition tracker from the walkthrough, exactly as the agents
+              left it. Read <code className="font-mono">docs/</code> for the spec
+              and plan the agents were handed.
+            </Card>
+          </div>
+
+          <h3 className="mt-12 text-xl font-semibold tracking-tight">
+            Files to copy
+          </h3>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-foreground/65">
+            Copy-and-paste files that change how Claude Code behaves. Skills live
+            in <code className="font-mono">.claude/skills/</code> in your project
+            and load automatically when the task matches. Every file below has a
+            copy button and a download link.
+          </p>
+
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {SKILLS.map((s) => (
               <Card
                 key={s.slug}

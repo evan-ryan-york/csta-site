@@ -75,7 +75,6 @@ export default function TutorialDeck({ stages }: { stages: Stage[] }) {
       const next = Math.max(0, Math.min(slides.length - 1, n));
       history.replaceState(null, "", `#${next + 1}`);
       window.dispatchEvent(new Event(HASH_EVENT));
-      window.scrollTo({ top: 0, behavior: "smooth" });
     },
     [slides.length],
   );
