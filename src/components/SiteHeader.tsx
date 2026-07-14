@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 // Add future pages here and they show up in the menu automatically.
 // Set external: true for anything that isn't a page on this site.
@@ -13,15 +14,76 @@ const NAV_LINKS = [
     label: "Session deck",
     external: true,
   },
+  {
+    href: "https://health-tracking-app-beta.vercel.app/",
+    label: "Health App",
+    external: true,
+  },
 ];
 
-const BASE_CLASS =
-  "rounded-full px-3 py-1.5 text-sm font-medium transition sm:px-4";
-const INACTIVE_CLASS =
-  "text-foreground/60 hover:bg-foreground/5 hover:text-foreground";
+function OutboundIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="h-3 w-3 opacity-60"
+      aria-hidden="true"
+    >
+      <path d="M7 17 17 7M9 7h8v8" />
+    </svg>
+  );
+}
+
+function NavItem({
+  link,
+  active,
+  onNavigate,
+  className,
+}: {
+  link: (typeof NAV_LINKS)[number];
+  active: boolean;
+  onNavigate?: () => void;
+  className: string;
+}) {
+  if (link.external) {
+    return (
+      <a
+        href={link.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={onNavigate}
+        className={`${className} inline-flex items-center gap-1.5 text-foreground/60 hover:bg-foreground/5 hover:text-foreground`}
+      >
+        {link.label}
+        <OutboundIcon />
+      </a>
+    );
+  }
+
+  return (
+    <Link
+      href={link.href}
+      onClick={onNavigate}
+      aria-current={active ? "page" : undefined}
+      className={`${className} ${
+        active
+          ? "bg-foreground/10 text-foreground"
+          : "text-foreground/60 hover:bg-foreground/5 hover:text-foreground"
+      }`}
+    >
+      {link.label}
+    </Link>
+  );
+}
 
 export default function SiteHeader() {
   const pathname = usePathname();
+  // Each link closes the menu itself via onNavigate, so no effect is needed.
+  const [open, setOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 border-b border-foreground/10 bg-background/80 backdrop-blur-md">
@@ -31,52 +93,71 @@ export default function SiteHeader() {
       >
         <Link
           href="/"
-          className="font-mono text-sm font-semibold uppercase tracking-widest transition hover:opacity-70"
+          className="shrink-0 font-mono text-sm font-semibold uppercase tracking-widest transition hover:opacity-70"
         >
           CSTA
         </Link>
 
-        <ul className="flex flex-wrap items-center justify-end gap-1 sm:gap-2">
+        {/* Desktop: everything inline. */}
+        <ul className="hidden items-center gap-2 md:flex">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
-              {link.external ? (
-                <a
-                  href={link.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`${BASE_CLASS} ${INACTIVE_CLASS} inline-flex items-center gap-1.5`}
-                >
-                  {link.label}
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-3 w-3 opacity-60"
-                    aria-hidden="true"
-                  >
-                    <path d="M7 17 17 7M9 7h8v8" />
-                  </svg>
-                </a>
-              ) : (
-                <Link
-                  href={link.href}
-                  aria-current={pathname === link.href ? "page" : undefined}
-                  className={`${BASE_CLASS} ${
-                    pathname === link.href
-                      ? "bg-foreground/10 text-foreground"
-                      : INACTIVE_CLASS
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              )}
+              <NavItem
+                link={link}
+                active={pathname === link.href}
+                className="rounded-full px-4 py-1.5 text-sm font-medium transition"
+              />
             </li>
           ))}
         </ul>
+
+        {/* Mobile: five items will not fit, so collapse them behind a menu. */}
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          aria-controls="mobile-menu"
+          aria-label={open ? "Close menu" : "Open menu"}
+          className="inline-flex items-center gap-2 rounded-full border border-foreground/15 px-3 py-1.5 text-sm font-medium text-foreground/70 transition hover:border-foreground/40 hover:text-foreground md:hidden"
+        >
+          Menu
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            className="h-4 w-4"
+            aria-hidden="true"
+          >
+            {open ? (
+              <path d="M6 6l12 12M18 6L6 18" />
+            ) : (
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            )}
+          </svg>
+        </button>
       </nav>
+
+      {open ? (
+        <div
+          id="mobile-menu"
+          className="border-t border-foreground/10 bg-background px-6 py-3 md:hidden"
+        >
+          <ul className="flex flex-col gap-1">
+            {NAV_LINKS.map((link) => (
+              <li key={link.href}>
+                <NavItem
+                  link={link}
+                  active={pathname === link.href}
+                  onNavigate={() => setOpen(false)}
+                  className="flex rounded-lg px-3 py-2.5 text-base font-medium transition"
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
     </header>
   );
 }
