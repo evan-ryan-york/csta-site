@@ -15,16 +15,6 @@ const NAV_LINKS = [
     label: "Session deck",
     external: true,
   },
-  {
-    href: "https://health-tracking-app-beta.vercel.app/",
-    label: "Health App",
-    external: true,
-  },
-  {
-    href: "https://www.youtube.com/watch?v=JT1CLJ61ktk",
-    label: "Build Demo Video",
-    external: true,
-  },
 ];
 
 function OutboundIcon() {
@@ -104,7 +94,7 @@ export default function SiteHeader() {
           CSTA
         </Link>
 
-        {/* Wide screens: everything inline. Five labels need ~1024px;
+        {/* Wide screens: everything inline. The four labels need ~1024px;
             below that they wrap inside their pills, so collapse instead. */}
         <ul className="hidden items-center gap-2 lg:flex">
           {NAV_LINKS.map((link) => (
