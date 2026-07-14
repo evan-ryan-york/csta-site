@@ -8,6 +8,7 @@ import { useState } from "react";
 // Set external: true for anything that isn't a page on this site.
 const NAV_LINKS = [
   { href: "/setting-up-claude-code", label: "Setting up Claude Code" },
+  { href: "/build-an-app", label: "Build an app" },
   { href: "/resources", label: "Resources" },
   {
     href: "https://docs.google.com/presentation/d/12ZHz2Y5yv-GD8Pv1DScaGDi6CmSd_jzW/edit?slide=id.p1#slide=id.p1",

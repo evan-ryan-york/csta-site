@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Contains third-party personal data (phone numbers, bank details, a
+# colleague name and pay). Kept locally, never published.
+public/tutorial/s7-11.jpg
